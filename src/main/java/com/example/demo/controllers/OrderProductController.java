@@ -3,7 +3,9 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +22,16 @@ public class OrderProductController {
     @GetMapping
     public List<OrderProduct> findAllOrderProducts() {
         return orderProductService.findAllOrderProducts();
+    }
+
+    @GetMapping(value = "/{id}")
+    public OrderProduct findOrderProductById(@PathVariable Long id) {
+        OrderProduct orderProduct = orderProductService.getByOrderProductId(id);
+        return orderProduct;
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteOrderProduct(@PathVariable Long id) {
+        orderProductService.deleteOrderProduct(id);
     }
 }
