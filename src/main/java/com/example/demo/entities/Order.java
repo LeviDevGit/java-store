@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.example.demo.dtos.OrderDTO;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -104,5 +106,14 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Order(OrderDTO dto) {
+        this.dataPedido = dto.getDataPedido();
+        this.status = dto.getStatus();
+        this.total = dto.getTotal();
+        Client ref = new Client();
+        ref.setId(dto.getClientId());
+        this.client = ref;
     }
 }

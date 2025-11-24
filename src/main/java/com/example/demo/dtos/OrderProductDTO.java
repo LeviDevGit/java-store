@@ -1,8 +1,6 @@
 package com.example.demo.dtos;
 
-import com.example.demo.entities.Order;
 import com.example.demo.entities.OrderProduct;
-import com.example.demo.entities.Product;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -10,32 +8,32 @@ import jakarta.validation.constraints.PositiveOrZero;
 public class OrderProductDTO {
     private Long id;
     @NotNull(message = "O pedido é obrigatório")
-    private Order order;
+    private Long orderId;
     @NotNull(message = "O produto é obrigatório")
-    private Product product;
+    private Long productId;
     @NotNull(message = "Quantidade é obrigatório")
     @PositiveOrZero(message = "Quantidade não pode ser negativo")
     private Integer quantidade;
 
-    public Double getSubTotal() {
-        return product.getPreco() * quantidade;
-    }
+    // public Double getSubTotal() {
+    // return product.getPreco() * quantidade;
+    // }
 
     public OrderProductDTO() {
 
     }
 
-    public OrderProductDTO(Long id, Order order, Product product, Integer quantidade) {
+    public OrderProductDTO(Long id, Long orderId, Long productId, Integer quantidade) {
         this.id = id;
-        this.order = order;
-        this.product = product;
+        this.orderId = orderId;
+        this.productId = productId;
         this.quantidade = quantidade;
     }
 
     public OrderProductDTO(OrderProduct entity) {
         this.id = entity.getId();
-        this.order = entity.getOrder();
-        this.product = entity.getProduct();
+        this.orderId = entity.getOrder().getId();
+        this.productId = entity.getProduct().getId();
         this.quantidade = entity.getQuantidade();
     }
 
@@ -47,20 +45,20 @@ public class OrderProductDTO {
         this.id = id;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Integer getQuantidade() {
